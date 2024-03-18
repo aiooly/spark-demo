@@ -1,0 +1,41 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+}
+
+plugins {
+    id 'scala'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+}
+
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+ext {
+    sparkVersion = '3.1.1'
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    implementation files('libs/scanns_2.12-1.0.0.jar')
+
+    // Scala dependencies
+    implementation 'org.scala-lang:scala-library:2.12.15'
+
+    // Spark dependencies
+    implementation 'org.apache.spark:spark-mllib_2.12:3.1.1'
+    // Add more Spark dependencies as needed
+
+    // Optional: Logging dependencies (for logging within your Spark application)
+    implementation 'org.slf4j:slf4j-api:1.7.32'
+    runtimeOnly 'org.slf4j:slf4j-simple:1.7.32'
+}
+
+// Configuration to create a fat JAR including all dependencies
+shadowJar {
+    configurations = [project.configurations.runtimeClasspath]
+}
