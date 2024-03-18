@@ -10,8 +10,10 @@ object Demo extends SparkUtils {
   }
 
   private def run(): Unit = {
-    val df = sparkSession.read.option("header", true).csv("src\resources\text01.csv")
+    val df = sparkSession.read.option("header", true).csv("src/main/resources/text01.csv")
+
     println(df.count())
+
     val tokenizer = new Tokenizer().setInputCol("question_text").setOutputCol("words")
     val tokenized = tokenizer.transform(df)
 
