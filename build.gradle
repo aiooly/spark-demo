@@ -35,7 +35,12 @@ dependencies {
     runtimeOnly 'org.slf4j:slf4j-simple:1.7.32'
 }
 
-// Configuration to create a fat JAR including all dependencies
 shadowJar {
     configurations = [project.configurations.runtimeClasspath]
+
+    manifest {
+        attributes 'Main-Class': 'Demo'
+    }
+
+    zip64 true
 }
